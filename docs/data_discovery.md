@@ -1,6 +1,6 @@
 # Data discovery IBGE/SIDRA
 
-Gerado em: 2026-08-23T13:13:42
+Gerado em: 2026-09-12T19:42:30
 
 ## Documentação oficial consultada
 

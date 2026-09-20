@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-09-20T12:35:12-03:00",
+  "rows": 5571,
+  "columns": 25,
+  "complete_records": 5570,
+  "checks": [
+    {
+      "check": "Chave municipal preenchida",
+      "result": "True",
+      "status": "PASS"
+    },
+    {
+      "check": "Chave municipal única",
+      "result": "True",
+      "status": "PASS"
+    },
+    {
+      "check": "Métricas não negativas",
+      "result": "True",
+      "status": "PASS"
+    },
+    {
+      "check": "Área territorial positiva",
+      "result": "True",
+      "status": "PASS"
+    },
+    {
+      "check": "Pelo menos 99% dos registros completos",
+      "result": "True",
+      "status": "PASS"
+    }
+  ],
+  "candidate_variables": [
+    "population_variation_pct",
+    "employed_per_1000_inhabitants",
+    "formal_employment_rate",
+    "local_units_per_company"
+  ]
+}
