@@ -9,6 +9,7 @@ dependencies = [
     "pyarrow>=16.0.0",
     "requests>=2.32.0",
     "scikit-learn>=1.5.0",
+    "streamlit>=1.40.0",
 ]
 
 [tool.uv]

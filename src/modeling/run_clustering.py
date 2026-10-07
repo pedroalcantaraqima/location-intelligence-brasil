@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from pathlib import Path
 import html
 import json
 import os
@@ -22,13 +21,13 @@ from sklearn.metrics import (
 )
 from sklearn.preprocessing import StandardScaler
 
+from src.utils.paths import DASHBOARDS, GOLD, OUTPUT_DATA, ROOT
 
-ROOT = Path(__file__).resolve().parents[2]
-INPUT = ROOT / "data" / "gold" / "municipal_analytical_base.csv"
-CLUSTERED = ROOT / "data" / "gold" / "municipal_clustered_base.csv"
-METRICS = ROOT / "docs" / "reports" / "sprint3_cluster_metrics.csv"
-REPORT = ROOT / "docs" / "reports" / "sprint3_model_report.html"
-SUMMARY = ROOT / "docs" / "reports" / "sprint3_model_summary.json"
+INPUT = GOLD / "municipal_analytical_base.csv"
+CLUSTERED = GOLD / "municipal_clustered_base.csv"
+METRICS = OUTPUT_DATA / "sprint3_cluster_metrics.csv"
+REPORT = DASHBOARDS / "sprint3_model_report.html"
+SUMMARY = OUTPUT_DATA / "sprint3_model_summary.json"
 
 FEATURES = {
     "gdp_per_capita_estimated": "capacidade econômica por habitante",
@@ -179,7 +178,8 @@ def main() -> None:
     pca = PCA(n_components=2, random_state=42)
     scores = pd.DataFrame(pca.fit_transform(scaled), index=scaled.index, columns=["PC1", "PC2"])
     generated = datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
-    METRICS.parent.mkdir(parents=True, exist_ok=True)
+    DASHBOARDS.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DATA.mkdir(parents=True, exist_ok=True)
     output.to_csv(CLUSTERED, index=False)
     metrics.to_csv(METRICS, index=False)
     point_info = df.loc[scores.index, ["municipality_name_ref", "state"]]

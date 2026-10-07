@@ -1,76 +1,59 @@
-# PFC Location Intelligence - Data Discovery
+# Location Intelligence Brasil
 
-PoC inicial para validar a viabilidade técnica de uma solução de inteligência territorial municipal usando dados públicos oficiais do IBGE.
+Protótipo de inteligência territorial municipal: integra dados públicos do IBGE (SIDRA), gera bases analíticas por município, aplica segmentação (clusters) e oferece um app para **pré-selecionar** localidades conforme o perfil do negócio ou **comparar** cidades.
 
-## Objetivo desta etapa
+Não substitui estudo de ponto comercial, concorrência ou viabilidade financeira.
 
-- Conectar em APIs oficiais do IBGE/SIDRA.
-- Ler metadados e dados municipais reais.
-- Avaliar linhas, colunas, períodos, variáveis e cobertura municipal.
-- Gerar uma primeira tabela Gold com uma linha por município.
+## O que há neste repositório
 
-## Execução com uv (recomendado)
+| Caminho | Função |
+|---------|--------|
+| `src/ingestion`, `src/transformation` | Coleta e padronização IBGE → camadas bronze/silver |
+| `src/analytics` | Indicadores derivados e relatório de qualidade |
+| `src/modeling` | Clusterização (K-means) e relatório técnico |
+| `src/pipeline` | Orquestração do fluxo completo |
+| `src/app` | Aplicação Streamlit |
+| `data/` | Dados do pipeline (bronze, silver, gold) |
+| `outputs/dashboards` | Relatórios HTML gerados |
+| `outputs/data` | Resumos JSON e métricas da última execução |
+| `docs/` | Notas da descoberta de dados (`data_discovery.md`) |
 
-Requer Python 3.11 ou superior e o [uv](https://docs.astral.sh/uv/).
+## Pré-requisitos
+
+Python 3.11+ e [uv](https://docs.astral.sh/uv/).
 
 ```bash
 uv sync
-uv run python -m src.ingestion.run_ibge_discovery
 ```
 
-O `uv sync` cria o ambiente virtual local e instala as dependências a partir
-do `pyproject.toml` e do `uv.lock`.
+## Rodar o pipeline
 
-## Execução com venv/pip
+Atualiza dados (opcional), base analítica, clusters e relatórios HTML:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m src.ingestion.run_ibge_discovery
+uv run python -m src.pipeline
 ```
 
-Os resultados são gravados em:
-
-- `data/bronze/`: respostas brutas e metadados da consulta.
-- `data/silver/`: dados tabulares padronizados.
-- `data/gold/`: primeira tabela municipal integrada.
-- `docs/data_discovery.md`: resumo técnico da descoberta.
-
-## Sprint 2: base analítica e catálogo
-
-Depois de gerar a Gold inicial, atualize a base analítica e o relatório HTML:
+Sem chamar a API do IBGE (usa a gold já presente no repo):
 
 ```bash
-uv run python -m src.analytics.generate_report
+uv run python -m src.pipeline --skip-ingestion
 ```
 
-O comando gera `data/gold/municipal_analytical_base.csv` e
-`docs/reports/sprint2_data_catalog.html`, com indicadores derivados,
-catálogo de variáveis, validações, nulos e correlações.
-
-## Sprint 3: avaliação e ajustes analíticos
-
-### Execução do analytics
-
-Com o ambiente instalado e a Gold inicial atualizada, execute:
+Relatórios estáticos (opcional):
 
 ```bash
-uv run python -m src.analytics.generate_report
-uv run python -m src.modeling.run_clustering
+open outputs/dashboards/sprint2_data_catalog.html
+open outputs/dashboards/sprint3_model_report.html
 ```
 
-O comando lê `data/gold/municipal_gold_initial.csv`, recalcula os
-indicadores analíticos e atualiza:
+## Rodar o app
 
-- `data/gold/municipal_analytical_base.csv`: base municipal enriquecida;
-- `docs/reports/sprint2_data_catalog.html`: catálogo visual e relatório de qualidade;
-- `docs/reports/sprint2_summary.json`: resumo estruturado da execução.
+Na raiz do repositório, após o pipeline (precisa de `data/gold/municipal_clustered_base.csv`):
 
-O relatório HTML pode ser aberto diretamente no navegador. Sempre que o
-comando for executado, esses arquivos são sobrescritos com os resultados
-mais recentes.
+```bash
+uv run streamlit run src/app/streamlit_app.py
+```
 
-A Sprint 3 utiliza a base analítica enriquecida para preparar e avaliar a
-segmentação não supervisionada dos municípios.
-
+- **Perfil da empresa** — questionário e ranking de municípios compatíveis.  
+- **Comparar municípios** — indicadores, cluster e diferenças lado a lado.

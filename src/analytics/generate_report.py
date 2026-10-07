@@ -1,18 +1,17 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from pathlib import Path
 import html
 import json
 
 import pandas as pd
 
+from src.utils.paths import DASHBOARDS, GOLD, OUTPUT_DATA
 
-ROOT = Path(__file__).resolve().parents[2]
-INPUT = ROOT / "data" / "gold" / "municipal_gold_initial.csv"
-OUTPUT = ROOT / "data" / "gold" / "municipal_analytical_base.csv"
-REPORT = ROOT / "docs" / "reports" / "sprint2_data_catalog.html"
-SUMMARY = ROOT / "docs" / "reports" / "sprint2_summary.json"
+INPUT = GOLD / "municipal_gold_initial.csv"
+OUTPUT = GOLD / "municipal_analytical_base.csv"
+REPORT = DASHBOARDS / "sprint2_data_catalog.html"
+SUMMARY = OUTPUT_DATA / "sprint2_summary.json"
 
 
 INDICATORS = {
@@ -114,7 +113,8 @@ def build_html(df: pd.DataFrame, cat: pd.DataFrame, checks: list[dict[str, str]]
 def main() -> None:
     df = build_base(pd.read_csv(INPUT))
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    REPORT.parent.mkdir(parents=True, exist_ok=True)
+    DASHBOARDS.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DATA.mkdir(parents=True, exist_ok=True)
     df.to_csv(OUTPUT, index=False)
     cat = catalog(df)
     checks = quality_checks(df)
