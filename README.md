@@ -57,6 +57,7 @@ Com o ambiente instalado e a Gold inicial atualizada, execute:
 
 ```bash
 uv run python -m src.analytics.generate_report
+uv run python -m src.modeling.run_clustering
 ```
 
 O comando lê `data/gold/municipal_gold_initial.csv`, recalcula os
@@ -73,22 +74,3 @@ mais recentes.
 A Sprint 3 utiliza a base analítica enriquecida para preparar e avaliar a
 segmentação não supervisionada dos municípios.
 
-Objetivos desta etapa:
-
-- selecionar as variáveis com justificativa de negócio;
-- tratar valores ausentes, assimetrias e outliers;
-- aplicar transformações e escalonamento;
-- avaliar correlações e variáveis redundantes;
-- explorar PCA para avaliar a estrutura multivariada;
-- testar diferentes quantidades de clusters;
-- comparar métricas, estabilidade e interpretabilidade;
-- descrever os perfis municipais encontrados;
-- registrar limitações e ajustes do modelo.
-
-Os principais produtos esperados são:
-
-- base analítica preparada para modelagem;
-- relatório de transformações e variáveis selecionadas;
-- métricas de avaliação dos agrupamentos;
-- perfis interpretáveis dos clusters;
-- documentação das limitações e decisões analíticas.

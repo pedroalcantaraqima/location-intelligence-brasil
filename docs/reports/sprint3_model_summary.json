@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-09-26T18:28:29-03:00",
+  "input": "data/gold/municipal_analytical_base.csv",
+  "rows_included": 5570,
+  "rows_excluded": 1,
+  "features": {
+    "gdp_per_capita_estimated": "capacidade econômica por habitante",
+    "density_per_km2": "concentração territorial e urbana",
+    "active_companies_per_1000_inhabitants": "dinamismo empresarial relativo",
+    "employed_per_1000_inhabitants": "intensidade de emprego formal",
+    "avg_monthly_salary_brl": "renda média do trabalho formal",
+    "formal_employment_rate": "proporção de emprego assalariado"
+  },
+  "selected_k": 3,
+  "pca_explained_variance_ratio": [
+    0.5108949961794723,
+    0.19868945551977685
+  ],
+  "metrics": [
+    {
+      "k": 3,
+      "silhouette": 0.3139498562276287,
+      "calinski_harabasz": 2411.5379503853615,
+      "davies_bouldin": 1.1255710363488591,
+      "stability_ari": 0.9995459412721814,
+      "rank_silhouette": 1.0,
+      "rank_calinski": 1.0,
+      "rank_davies": 1.0,
+      "rank_stability": 1.0,
+      "rank_mean": 1.0
+    },
+    {
+      "k": 4,
+      "silhouette": 0.2734285254823883,
+      "calinski_harabasz": 2269.876297575478,
+      "davies_bouldin": 1.2244827424894855,
+      "stability_ari": 0.9870223639419456,
+      "rank_silhouette": 2.0,
+      "rank_calinski": 2.0,
+      "rank_davies": 2.0,
+      "rank_stability": 2.0,
+      "rank_mean": 2.0
+    },
+    {
+      "k": 5,
+      "silhouette": 0.22499202040122818,
+      "calinski_harabasz": 2032.702497261225,
+      "davies_bouldin": 1.323321177530533,
+      "stability_ari": 0.9780552897669708,
+      "rank_silhouette": 3.0,
+      "rank_calinski": 3.0,
+      "rank_davies": 3.0,
+      "rank_stability": 3.0,
+      "rank_mean": 3.0
+    },
+    {
+      "k": 6,
+      "silhouette": 0.20581678566118636,
+      "calinski_harabasz": 1890.150713352937,
+      "davies_bouldin": 1.4221829105648014,
+      "stability_ari": 0.9441765458010162,
+      "rank_silhouette": 5.0,
+      "rank_calinski": 4.0,
+      "rank_davies": 6.0,
+      "rank_stability": 5.0,
+      "rank_mean": 5.0
+    },
+    {
+      "k": 7,
+      "silhouette": 0.20691838523667178,
+      "calinski_harabasz": 1759.7152874435146,
+      "davies_bouldin": 1.3816028745607487,
+      "stability_ari": 0.9745069502626901,
+      "rank_silhouette": 4.0,
+      "rank_calinski": 5.0,
+      "rank_davies": 5.0,
+      "rank_stability": 4.0,
+      "rank_mean": 4.5
+    },
+    {
+      "k": 8,
+      "silhouette": 0.19509566875046166,
+      "calinski_harabasz": 1672.4895362445852,
+      "davies_bouldin": 1.349299533527891,
+      "stability_ari": 0.8840371202646665,
+      "rank_silhouette": 6.0,
+      "rank_calinski": 6.0,
+      "rank_davies": 4.0,
+      "rank_stability": 6.0,
+      "rank_mean": 5.5
+    }
+  ],
+  "transformations": {
+    "gdp_per_capita_estimated": {
+      "tratamento": "winsorização P1–P99 + log1p",
+      "p1": 7466.761909008271,
+      "p99": 176695.3988348525
+    },
+    "density_per_km2": {
+      "tratamento": "winsorização P1–P99 + log1p",
+      "p1": 0.8706999999999999,
+      "p99": 2226.7703
+    },
+    "active_companies_per_1000_inhabitants": {
+      "tratamento": "winsorização P1–P99 + log1p",
+      "p1": 10.179504460147598,
+      "p99": 235.94337489612738
+    },
+    "employed_per_1000_inhabitants": {
+      "tratamento": "winsorização P1–P99 + log1p",
+      "p1": 48.523213385063535,
+      "p99": 612.6997415198263
+    },
+    "avg_monthly_salary_brl": {
+      "tratamento": "winsorização P1–P99 + log1p",
+      "p1": 1407.3105,
+      "p99": 4780.534700000001
+    },
+    "formal_employment_rate": {
+      "tratamento": "winsorização P1–P99",
+      "p1": 39.11332728921124,
+      "p99": 92.79139597242968
+    }
+  }
+}
