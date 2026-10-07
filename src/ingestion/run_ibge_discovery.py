@@ -2,21 +2,13 @@ from __future__ import annotations
 
 import logging
 from datetime import datetime
-from pathlib import Path
-
 import pandas as pd
 
 from src.ingestion.ibge_client import IBGEClient
 from src.transformation.sidra import normalize_sidra_long, pivot_indicators, sidra_to_dataframe
 from src.utils.io import write_dataframe, write_json
+from src.utils.paths import BRONZE, DOCS, GOLD, SILVER
 from src.validation.basic_checks import summarize_dataframe, validate_gold
-
-
-ROOT = Path(__file__).resolve().parents[2]
-BRONZE = ROOT / "data" / "bronze"
-SILVER = ROOT / "data" / "silver"
-GOLD = ROOT / "data" / "gold"
-DOCS = ROOT / "docs"
 
 SOURCES = {
     "population_estimate": {
